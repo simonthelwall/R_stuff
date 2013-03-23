@@ -20,3 +20,7 @@ head(summfit1)
 p <- ggplot(summfit1,aes(x=time, y=surv)) + geom_line() 
 p <- p + geom_line(aes(y=lower), linetype=2) + geom_line(aes(y=upper), linetype=2)
 p
+
+# Cox regression ####
+coxfit1 <- coxph(Surv(time, status)~1, data = aml)
+summary(coxfit1)

@@ -43,3 +43,18 @@ cirr<-function(n1,d1,n2,d2){
   return(paste(round(lci,2),"-",round(uci,2),sep=""))
 }
 #serr(410,560,425,577)
+
+# For use with regression models. Extract p values and odds ratios.
+p_wrapper<-function(x){
+  round(with(x,pchisq(null.deviance - deviance,df.null-df.residual,lower.tail=FALSE)),3)
+}
+or_wrapper<-function(x){
+  cbind(OR=exp(coef(x)),exp(confint(x)),p_val=round(summary(x)$coefficients[,4],6))
+}
+
+# Convert text to sentence case
+simpleCap<-function(x){
+  s<-as.character(x)
+  s<-paste(toupper(substring(s,1,1)),substring(s,2),sep="")
+  #  s<-as.factor(s)
+}
