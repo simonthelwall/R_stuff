@@ -1,3 +1,5 @@
+
+# cribbed from http://r.789695.n4.nabble.com/retrieve-user-input-from-an-tcl-tk-interface-td900170.html
 getDate <- function() { 
   require(tcltk) 
   tt <- tktoplevel() 
