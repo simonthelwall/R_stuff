@@ -33,3 +33,4 @@ NHSvalidation <- function(NHSnumber){
 }
 
 # Use: numbers$valid<-sapply(numbers$NHSn,NHSvalidation)
+# Slightly adapted from: http://healthanalyst.wordpress.com/2011/08/21/nhs-number-validation/
