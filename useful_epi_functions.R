@@ -45,10 +45,10 @@ cirr<-function(n1,d1,n2,d2){
 #serr(410,560,425,577)
 
 # For use with regression models. Extract p values and odds ratios.
-p_wrapper<-function(x){
+pWrapper<-function(x){
   round(with(x,pchisq(null.deviance - deviance,df.null-df.residual,lower.tail=FALSE)),3)
 }
-or_wrapper<-function(x){
+orWrapper<-function(x){
   cbind(OR=exp(coef(x)),exp(confint(x)),p_val=round(summary(x)$coefficients[,4],6))
 }
 
