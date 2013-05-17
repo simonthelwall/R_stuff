@@ -55,6 +55,6 @@ orWrapper<-function(x){
 # Convert text to sentence case
 simpleCap<-function(x){
   s<-as.character(x)
-  s<-paste(toupper(substring(s,1,1)),substring(s,2),sep="")
+  s<-paste(toupper(substring(s,1,1)),tolower(substring(s,2)),sep="")
   #  s<-as.factor(s)
 }
