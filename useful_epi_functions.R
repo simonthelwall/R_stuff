@@ -57,6 +57,20 @@ seP <-function(x,n,z){
   return(se)
 }
 
+# Confidence interval for a proportion or percent. Requires seP above.
+ciP <- function(x, n, p = "percent", bound = "lower"){
+  if(tolower(tail) == "lower"){
+    se <- seP(x,n,p)
+    lci <- x - (1.96*se)
+    return(lci)
+  } else if(tolower(tail) == "upper"){
+    se <- seP(x,n,p)
+    uci <- x + (1.96*se)
+    return(uci)
+  }
+    else print("Please choose upper or lower bounds for confidence interval.")
+}
+
 # For use with regression models. Extract p values and odds ratios.
 pWrapper<-function(x){
   round(with(x,pchisq(null.deviance - deviance,df.null-df.residual,lower.tail=FALSE)),3)
