@@ -44,6 +44,19 @@ cirr<-function(n1,d1,n2,d2){
 }
 #serr(410,560,425,577)
 
+# function for std error of a proportion or percentage
+seP <-function(x,n,z){
+  # x is proportion, n is number of observations, z should be vector of length 1 to establish whether prop or perc
+  if(tolower(z) == "percent"){
+    se <- sqrt((x*(100-x))/n)  
+  }
+  else if(tolower(z) == "proportion"){
+    se <- sqrt((x*(1-x))/n)  
+  }
+  else print("Please indicate either percent or proportion")
+  return(se)
+}
+
 # For use with regression models. Extract p values and odds ratios.
 pWrapper<-function(x){
   round(with(x,pchisq(null.deviance - deviance,df.null-df.residual,lower.tail=FALSE)),3)
