@@ -59,11 +59,11 @@ seP <-function(x,n,z){
 
 # Confidence interval for a proportion or percent. Requires seP above.
 ciP <- function(x, n, p = "percent", bound = "lower"){
-  if(tolower(tail) == "lower"){
+  if(tolower(bound) == "lower"){
     se <- seP(x,n,p)
     lci <- x - (1.96*se)
     return(lci)
-  } else if(tolower(tail) == "upper"){
+  } else if(tolower(bound) == "upper"){
     se <- seP(x,n,p)
     uci <- x + (1.96*se)
     return(uci)
