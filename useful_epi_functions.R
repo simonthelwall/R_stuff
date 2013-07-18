@@ -77,7 +77,7 @@ ciMean <- function(x, bound="lower", na.rm = TRUE){
     lci <- mean(x, na.rm = na.rm) - (1.96 * sd(x, na.rm = na.rm))
     return(lci)
   } else if(tolower(bound) == "upper"){
-    lci <- mean(x, na.rm = na.rm) + (1.96 * sd(x, na.rm = na.rm))
+    uci <- mean(x, na.rm = na.rm) + (1.96 * sd(x, na.rm = na.rm))
     return(uci)
   }
   else print("Please choose upper or lower bounds for confidence interval.")
