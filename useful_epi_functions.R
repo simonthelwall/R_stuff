@@ -71,6 +71,18 @@ ciP <- function(x, n, p = "percent", bound = "lower"){
     else print("Please choose upper or lower bounds for confidence interval.")
 }
 
+# Confidence interval for a mean. Vectorised, intended for use with ddply. 
+ciMean <- function(x, bound="lower", na.rm = TRUE){
+  if(tolower(bound) == "lower"){
+    lci <- mean(x, na.rm = na.rm) - (1.96 * sd(x, na.rm = na.rm))
+    return(lci)
+  } else if(tolower(bound) == "upper"){
+    lci <- mean(x, na.rm = na.rm) + (1.96 * sd(x, na.rm = na.rm))
+    return(uci)
+  }
+  else print("Please choose upper or lower bounds for confidence interval.")
+}
+
 # For use with regression models. Extract p values and odds ratios.
 pWrapper<-function(x){
   round(with(x,pchisq(null.deviance - deviance,df.null-df.residual,lower.tail=FALSE)),3)
