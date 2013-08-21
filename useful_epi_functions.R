@@ -99,12 +99,14 @@ simpleCap<-function(x){
 }
 
 # Simple odds ratios, confidence intervals and p-values. 
+# requires as.numeric() for OR calculation as large datasets can cause integer overflow. 
 orCalc <- function(outcome, riskf){
   # x should be outcome, y stratifying variable. 
   # cribbed from mhodds in epicalc package
   # with reference to p157 + p164 of Kirkewood and Sterne, Essential Medical Statistics. 2nd Ed
   tab <- table(riskf, outcome)
-  #print(tab)
+  print(tab)
+  cat("\n")
   or <- c(1:dim(tab)[1]) # create vector of same length as table rows. 
   se.log.or <- c(1:dim(tab)[1])
   lci <- c(1:dim(tab)[1])
@@ -112,7 +114,7 @@ orCalc <- function(outcome, riskf){
   z <- c(1:dim(tab)[1])
   p <- c(1:dim(tab)[1])
   for (i in 1:dim(tab)[1]){
-    or[i] <- (tab[1,1]*tab[i,2])/(tab[1,2]*tab[i,1])
+    or[i] <- (as.numeric(tab[1,1])*as.numeric(tab[i,2]))/(as.numeric(tab[1,2])*as.numeric(tab[i,1]))
     se.log.or[i] <-sqrt(1/tab[1,1] + 1/tab[1,2] + 1/tab[i,1] + 1/tab[i,2])
     lci[i] <- or[i]/exp(1.96 * se.log.or[i])
     uci[i] <- or[i]*exp(1.96 * se.log.or[i])
