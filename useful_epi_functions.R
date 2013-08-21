@@ -97,3 +97,28 @@ simpleCap<-function(x){
   s<-paste(toupper(substring(s,1,1)),tolower(substring(s,2)),sep="")
   #  s<-as.factor(s)
 }
+
+# Simple odds ratios, confidence intervals and p-values. 
+orCalc <- function(outcome, riskf){
+  # x should be outcome, y stratifying variable. 
+  # cribbed from mhodds in epicalc package
+  # with reference to p157 + p164 of Kirkewood and Sterne, Essential Medical Statistics. 2nd Ed
+  tab <- table(riskf, outcome)
+  #print(tab)
+  or <- c(1:dim(tab)[1]) # create vector of same length as table rows. 
+  se.log.or <- c(1:dim(tab)[1])
+  lci <- c(1:dim(tab)[1])
+  uci <- c(1:dim(tab)[1])
+  z <- c(1:dim(tab)[1])
+  p <- c(1:dim(tab)[1])
+  for (i in 1:dim(tab)[1]){
+    or[i] <- (tab[1,1]*tab[i,2])/(tab[1,2]*tab[i,1])
+    se.log.or[i] <-sqrt(1/tab[1,1] + 1/tab[1,2] + 1/tab[i,1] + 1/tab[i,2])
+    lci[i] <- or[i]/exp(1.96 * se.log.or[i])
+    uci[i] <- or[i]*exp(1.96 * se.log.or[i])
+    z[i] <- log(or[i])/se.log.or[i]
+    p[i] <- 2*(1-pnorm(abs(z[i]))) #?
+  }
+  m <- as.matrix(cbind(or, se.log.or, lci, uci, z, p))
+  return(m)
+}
