@@ -125,6 +125,8 @@ orCalc <- function(outcome, riskf){
   return(m)
 }
 
+# Wrapper for calculating exponentiated forms of linear combinations of interaction terms from regression models
+# including confidence intervals. Returns list in order to facilitate integration into a dataframe. 
 lincom <- function(svycontrast_object){
   require(survey)
   if (class(svycontrast_object)=="svystat"){
