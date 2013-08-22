@@ -124,3 +124,15 @@ orCalc <- function(outcome, riskf){
   m <- as.matrix(cbind(or, se.log.or, lci, uci, z, p))
   return(m)
 }
+
+lincom <- function(svycontrast_object){
+  require(survey)
+  if (class(svycontrast_object)=="svystat"){
+    or <- exp(svycontrast_object[1])
+    lci <- or / exp(1.96*sqrt(attributes(svycontrast_object)$var))
+    uci <- or * exp(1.96*sqrt(attributes(svycontrast_object)$var))
+    return(as.list(c(or, lci, uci)))
+  } else {
+    print("Requires object of class svystat")
+  }
+}
