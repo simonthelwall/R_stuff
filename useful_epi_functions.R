@@ -138,3 +138,13 @@ lincom <- function(svycontrast_object){
     print("Requires object of class svystat")
   }
 }
+
+# useful wrapper to extract p value from linear regression object. 
+# http://stackoverflow.com/questions/5587676/pull-out-p-values-and-r-squared-from-a-linear-regression
+lmp <- function (modelobject) {
+  if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+  f <- summary(modelobject)$fstatistic
+  p <- unname(pf(f[1],f[2],f[3],lower.tail=F))
+  attributes(p) <- NULL
+  return(p)
+}
