@@ -148,3 +148,19 @@ lmp <- function (modelobject) {
   attributes(p) <- NULL
   return(p)
 }
+
+pValFunTex <- function(x){
+  if (x < 0.001) print("p < 0.001")
+  else if (x < 0.01) print("p < 0.01")
+  else if (x < 0.05) print("p < 0.05")
+  else if (x < 0.1) print("p < 0.1")
+  else print(paste("p = ", round(x, 2), sep = ""))
+}
+
+pValFun <- function(x){
+  if (x < 0.001) print("p \\textless 0.001")
+  else if (x < 0.01) print("p \\textless 0.01")
+  else if (x < 0.05) print("p \\textless 0.05")
+  else if (x < 0.1) print("p \\textless 0.1")
+  else print(paste("p = ", round(x, 2), sep = ""))
+}
