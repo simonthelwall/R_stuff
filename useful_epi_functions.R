@@ -158,9 +158,10 @@ pValFun <- function(x){
 }
 
 pValFunTex <- function(x){
-  if (x < 0.001) print("p \\textless 0.001")
-  else if (x < 0.01) print("p \\textless 0.01")
-  else if (x < 0.05) print("p \\textless 0.05")
-  else if (x < 0.1) print("p \\textless 0.1")
-  else print(paste("p = ", round(x, 2), sep = ""))
+  if (x < 0.001) pval <- "p \\textless 0.001"
+  else if (x < 0.01) pval <- "p \\textless 0.01"
+  else if (x < 0.05) pval <- "p \\textless 0.05"
+  else if (x < 0.1) pval <- "p \\textless 0.1"
+  else pval <- paste("p = ", round(x, 2), sep = "")
+  return(pval)
 }
