@@ -157,6 +157,7 @@ pValFun <- function(x){
   else print(paste("p = ", round(x, 2), sep = ""))
 }
 
+# It's worth knowing that pValFunTEx can be used on a column of a dataframe using lapply(df$var, pValFunTex)
 pValFunTex <- function(x){
   if (x < 0.001) pval <- "p \\textless 0.001"
   else if (x < 0.01) pval <- "p \\textless 0.01"
