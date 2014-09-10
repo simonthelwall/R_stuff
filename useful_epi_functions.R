@@ -166,3 +166,26 @@ pValFunTex <- function(x){
   else pval <- paste("p = ", round(x, 2), sep = "")
   return(pval)
 }
+
+# Calculating change in mean square error for assessing multicollinearity
+# as per Neil Pearce.
+rRMSE <- function(exposure, reduced.model, full.model){
+  beta.r <- summary(reduced.model)$coefficients[exposure,1]
+  beta.full <- summary(full.model)$coefficients[exposure,1]
+  se.r <- summary(reduced.model)$coefficients[exposure,2]
+  se.full <- summary(full.model)$coefficients[exposure,2]
+  ceChange <- beta.r-beta.full
+  rMSE.full <- sqrt((se.full - se.full)^2 + se.full^2)
+  rMSE.r <- sqrt(((beta.r - beta.full)^2)+(se.r^2))
+  dMSE <- (beta.r-beta.full)^2-((se.full^2)-(se.r^2))
+  rel.rMSE <- rMSE.r/rMSE.full
+  cat("beta reduced:", beta.r, "\n", sep = " ")
+  cat("beta full:", beta.full, "\n", sep = " ")
+  cat("se reduced:", se.r, "\n", sep = " ")
+  cat("se full:", se.full, "\n", sep = " ")
+  cat("Root MSE reduced:", rMSE.r, "\n", sep = " ")
+  cat("Root MSE full:", rMSE.full, "\n", sep = " ")
+  cat("Change in estimate:", ceChange, "\t(", round((ceChange/beta.full)*100,2), "%)", "\n", sep = " ")
+  cat("Relative RMSE:", rel.rMSE, "\n", sep = " ")
+  cat("\tA negative change in MSE indicates collinearity. ")
+}
